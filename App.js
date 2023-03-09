@@ -1,150 +1,70 @@
-import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
-  Button,
-  TextInput,
   View,
-  Text,
-  FlatList,
-  Modal,
-  Pressable,
+  TouchableWithoutFeedback,
+  Keyboard,
 } from "react-native";
+import React from "react";
+import { useCallback } from 'react';
+import { useFonts } from 'expo-font';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+
+import Tematicas from './src/screens/Tematicas';
+import Alarm from './src/screens/Alarm';
 import Header from './src/components/Header';
-import COLORS from './src/constants/Colors';
+import Presentacion from './src/screens/Presentacion';
+import SetDespertador from './src/screens/SetDespertador';
+import AlarmON from './src/screens/AlarmON';
 
 export default function App() {
-  const [itemText, setItemText] = useState("");
-  const [items, setItems] = useState([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedItem, setSelectedItem] = useState(null);
+  const [presentacion, setPresentacion] = React.useState (true);
 
-  const onChangeText = (text) => {
-    setItemText(text);
-  };
+  React.useEffect(()=> {
+    setTimeout( () => {
+      setPresentacion(false);
+    }, 2500);
+  }, []);
 
-  const addItemToState = () => {
-    setItems((oldArry) => [...oldArry, { id: Date.now(), value: itemText, active: true }]);
-    setItemText("");
-  };
+  const [alarmDefined, setAlarmDefined] = React.useState ('');
 
-  const openModal = (item) => {
-    setSelectedItem(item);
-    setModalVisible(true);
-  };
+    const setAlarm = alarm => {
+    setAlarmDefined(alarm);
+}
 
-  const onCancelModal = () => {
-    setModalVisible(!modalVisible);
-  };
+  
+  const [fontsLoaded] = useFonts ({
+    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
+    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
+  });
 
-  const onDeleteModal = (id) => {
-    setModalVisible(!modalVisible);
-    setItems((oldArry) => oldArry.filter((item) => item.id !== id));
-    setSelectedItem(null);
-  };
+  const onLayoutRootView = useCallback(async () => {
+    if (fontsLoaded) {
+      await SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
 
-  const onSilenciarModal = (id) => {
-    setItems((oldArry) => oldArry.map(item => {
-      if(item.id == id) {
-      item.active = false;
-      }
-      return item;
-      }))
-    setModalVisible(!modalVisible);
-  };
 
-  const onActivarModal = (id) => {
-    setItems((oldArry) => oldArry.map(item => {
-      if(item.id == id) {
-      item.active = true;
-      }
-      return item;
-      }))
-    setModalVisible(!modalVisible);
-  };
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-    <View style={styles.screen}>
-      <Header/>
-      <Text style={styles.title}>Ingresá el tipo de Meditación que te gustaría escuchar:</Text>
-      <View style={styles.addItemInputContainer}>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <View style={styles.screen} onLayout={onLayoutRootView}>
+     {presentacion && <Presentacion/>}
+
+     {!presentacion && <Header/>}     
+     {  
+        !alarmDefined
+          ? <SetDespertador alarmON={setAlarm}/>
+          : <AlarmON alarmON={setAlarm} selectedNumber={alarmDefined} />
+      }
       
-        <TextInput
-          placeholder="Escribí una temática"
-          style={styles.input}
-          onChangeText={onChangeText}
-          value={itemText}
-        />
-        <Pressable style={styles.botonSumar} onPress={addItemToState}>
-        <Text>Sumar</Text>
-        </Pressable>
-      </View>
-      <FlatList
-        data={items}
-        renderItem={(itemData) => (
-          <Pressable
-            style={itemData.item.active == true ? styles.itemContainer : styles.itemContainerSilenciado}
-            onPress={() => {
-              openModal(itemData.item);
-            }}
-          >
-            <Text style={styles.item}>{itemData.item.value}</Text>
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
 
-      <Modal animationType="slide" transparent={true} visible={modalVisible}>
-        <View style={styles.modalMainView}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalTitle}>Eliminar Temática</Text>
-            <Text style={styles.modalText}>
-              ¿Está seguro que desea eliminar la Temática{" "}
-              <Text style={styles.modalBoldText}>{selectedItem?.value}</Text>?
-            </Text>
-            <View style={styles.modalActions}>
-              <Pressable
-                style={[styles.button, styles.buttonCancel]}
-                onPress={onCancelModal}
-              >
-                <Text style={styles.textStyle}>Cancelar</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.button, styles.buttonDelete]}
-                onPress={() => {
-                  onDeleteModal(selectedItem.id);
-                }}
-              >
-                <Text style={styles.textStyle}>Eliminar</Text>
-              </Pressable>
-            </View>
-
-            
-                <View style={styles.modalActions}>
-                  {selectedItem.active?
-                  <Pressable
-                  style={[styles.button, styles.buttonSilenciar]}
-                  onPress={() => {
-                  onSilenciarModal(selectedItem.id);
-                  }}
->
-                 <Text style={styles.textStyleSilenciar}>Sólo Silenciar</Text>
-                 </Pressable>
-                  :
-                    <Pressable
-                    style={[styles.button, styles.buttonSilenciar]}
-                    onPress={() => {
-                    onActivarModal(selectedItem.id);
-                    }}
-  >
-                   <Text style={styles.textStyleSilenciar}>Activar Temática</Text>
-                   </Pressable>
-                  }                           
-                </View>     
-
-            </View>
-        </View>
-      </Modal>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -153,109 +73,4 @@ const styles = StyleSheet.create({
     padding: 30,
     flex: 1,
   },
-  title: {
-    paddingTop: 30,
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "left",
-    color: COLORS.text,
-  },
-  botonSumar:{
-    backgroundColor: COLORS.primary,
-    padding:6,
-    minWidth: 70,
-    alignItems: "center",
-    borderRadius:4,
-    color: "#FFFFFF",
-  },
-  addItemInputContainer: {
-    marginTop: 30,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  input: {
-    width: 200,
-    borderBottomColor: "black",
-    borderBottomWidth: 1,
-  },
-  itemContainer: {
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: COLORS.primaryLight,
-  },
-  itemContainerSilenciado: {
-    marginTop: 20,
-    padding: 10,
-    borderRadius: 5,
-    backgroundColor: COLORS.greyLight,
-  },
-  item: {
-    padding: 10,
-    textAlign: "center",
-  },
-  modalMainView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  modalView: {
-    margin: 10,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 20,
-    alignItems: "center",
-    shadowColor: COLORS.shadow,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.9,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  modalTitle: {
-    padding: 10,
-    borderRadius: 5,
-    fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    color:COLORS.text,
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-    color:COLORS.text,
-  },
-  modalBoldText: {
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-  },
-  modalActions: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  button: {
-    borderRadius: 5,
-    padding: 8,
-    minWidth:80,
-    alignItems:"center",
-    marginHorizontal: 15,
-  },
-  buttonCancel: {
-    backgroundColor: COLORS.primary,
-  },
-  buttonDelete: {
-    backgroundColor: COLORS.alerta,
-  },
-  buttonSilenciar: {
-    backgroundColor: "#FFFFFF",
-  },
-  textStyleSilenciar:{
-    fontWeight: "bold",
-    textDecorationLine: "underline",
-    color: COLORS.primary,
-  },
-
 });
