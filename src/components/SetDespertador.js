@@ -4,17 +4,17 @@ import {
     Text,
     TouchableWithoutFeedback,
     Keyboard,
+    Dimensions
     } from 'react-native'
 
-    import React, { useState } from "react";
-
+import React, { useState } from "react";
 import Card from './Card'
 import Button from './Button'
 import COLORS from '../constants/Colors'
 import Input from './Input'
 import NumberContainer from './NumberContainer'
 
-
+const { height, width } = Dimensions.get("window");
 
 
 const SetDespertador = (setAlarm) => {
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     container: {
       flex: 1,
       padding: 10,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     title: {
         fontSize: 20,
@@ -106,10 +106,11 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     inputContainer: {
-      width: 300,
-      maxWidth: '80%',
+      width: width * 0.8,
+      maxWidth: width * 0.8,
+      height: height * 0.22,
       padding: 20,
-      alignItems: 'center'
+      alignItems: 'center',
     },
     inputDectiptionText: {
       textAlign: 'center'
@@ -130,6 +131,7 @@ const styles = StyleSheet.create({
     },
     selectedNumberContainer:{
       marginTop: 20,
+      height: height * 0.22,
       width: 200,
       maxWidth: '80%',
       padding:10,

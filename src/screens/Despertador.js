@@ -7,7 +7,7 @@ import SetDespertador from '../components/SetDespertador';
 
 function Despertador () {
 
-    const [alarmDefined, setAlarmDefined] = useState ('');
+    const [alarmDefined, setAlarmDefined] = useState (false);
 
     const setAlarm = alarm => {
     setAlarmDefined(alarm);
