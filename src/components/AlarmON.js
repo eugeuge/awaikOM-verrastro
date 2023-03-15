@@ -1,9 +1,12 @@
-import { View, Text, StyleSheet, } from 'react-native'
+import { View, Text, StyleSheet, Dimensions} from 'react-native'
 import React from 'react'
 
 import Card from '../components/Card'
 import Button from '../components/Button'
 import NumberContainer from '../components/NumberContainer'
+
+const { height, width } = Dimensions.get("window");
+
 
 const AlarmON = ({setAlarm, selectedNumber}) => {
   return (
@@ -29,8 +32,9 @@ const styles = StyleSheet.create({
       },
     selectedNumberContainer:{
         marginTop: 20,
-        width: 200,
-        maxWidth: '80%',
+        width: width * 0.6,
+        maxWidth: width * 0.6,
+        height: height * 0.23,
         padding:10,
         alignItems: 'center',
       }

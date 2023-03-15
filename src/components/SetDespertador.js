@@ -4,6 +4,7 @@ import {
     Text,
     TouchableWithoutFeedback,
     Keyboard,
+    Dimensions,
     } from 'react-native'
 
     import React, { useState } from "react";
@@ -14,10 +15,12 @@ import COLORS from '../constants/Colors'
 import Input from './Input'
 import NumberContainer from './NumberContainer'
 
+const { height, width } = Dimensions.get("window");
 
 
 
-const SetDespertador = (setAlarm) => {
+
+const SetDespertador = ({setAlarm}) => {
 
 const [enteredValue, setEnteredValue] = useState('')
 const [confirmed, setConfirmed] = useState(false)
@@ -106,8 +109,9 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     inputContainer: {
-      width: 300,
-      maxWidth: '80%',
+      width: width * 0.7,
+      maxWidth: width * 0.7,
+      height: height * 0.25,
       padding: 20,
       alignItems: 'center'
     },
@@ -116,6 +120,8 @@ const styles = StyleSheet.create({
     },
     input: {
       width: 50,
+      height: height * 0.05,
+      marginBottom: 20,
       textAlign: 'center'
     },
     buttonsContainer: {
@@ -130,6 +136,7 @@ const styles = StyleSheet.create({
     },
     selectedNumberContainer:{
       marginTop: 20,
+      height: height * 0.22,
       width: 200,
       maxWidth: '80%',
       padding:10,
