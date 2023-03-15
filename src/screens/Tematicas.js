@@ -6,10 +6,10 @@ import {
   FlatList,
   Modal,
   Pressable,
+  TouchableWithoutFeedback,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 
-import Header from '../components/Header';
 import Button from '../components/Button';
 import COLORS from '../constants/Colors';
 
@@ -64,8 +64,8 @@ const Tematicas = () => {
   };
 
   return (
-    <View>
- <Header/>
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    <View style= {styles.container}>
       <Text style={styles.title}>Ingresá el tipo de Meditación que te gustaría escuchar:</Text>
       <View style={styles.addItemInputContainer}>
       
@@ -146,12 +146,17 @@ const Tematicas = () => {
         </View>
       </Modal>
     </View>
+    </TouchableWithoutFeedback>
   )
 }
 
 export default Tematicas
 
 const styles = StyleSheet.create({
+  container: {
+    margin:30,
+    marginTop: 10,
+},
     title: {
       paddingTop: 30,
       fontSize: 20,

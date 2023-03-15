@@ -4,34 +4,27 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useCallback } from 'react';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
 
-import Tematicas from './src/screens/Tematicas';
-import Alarm from './src/screens/Alarm';
-import Header from './src/components/Header';
 import Presentacion from './src/screens/Presentacion';
-import SetDespertador from './src/screens/SetDespertador';
-import AlarmON from './src/screens/AlarmON';
+import Header from './src/components/Header';
+import MainNavigator from './src/navigators/MainNavigator';
+
+
 
 export default function App() {
-  const [presentacion, setPresentacion] = React.useState (true);
+  const [presentacion, setPresentacion] = useState (true);
 
-  React.useEffect(()=> {
+  useEffect(()=> {
     setTimeout( () => {
       setPresentacion(false);
-    }, 2500);
+    }, 5000);
   }, []);
-
-  const [alarmDefined, setAlarmDefined] = React.useState ('');
-
-    const setAlarm = alarm => {
-    setAlarmDefined(alarm);
-}
 
   
   const [fontsLoaded] = useFonts ({
@@ -52,25 +45,21 @@ export default function App() {
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+
     <View style={styles.screen} onLayout={onLayoutRootView}>
      {presentacion && <Presentacion/>}
 
-     {!presentacion && <Header/>}     
-     {  
-        !alarmDefined
-          ? <SetDespertador alarmON={setAlarm}/>
-          : <AlarmON alarmON={setAlarm} selectedNumber={alarmDefined} />
-      }
-      
+     {!presentacion && <Header/>}
+     {!presentacion && <MainNavigator/>}    
 
     </View>
+
     </TouchableWithoutFeedback>
   );
 }
 
 const styles = StyleSheet.create({
   screen: {
-    padding: 30,
     flex: 1,
   },
 });

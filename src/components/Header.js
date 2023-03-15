@@ -15,14 +15,15 @@ const Header = () => {
   const styles = StyleSheet.create({
       container: {
           width: '100%',
-          height: 70,
-          paddingTop: 5,
+          height: 50,
+          padding: 30,
+          paddingTop: 70,
           alignItems: 'center',
           justifyContent: 'center'
       },
       logo:{
         width: '100%',
-        height: 70,
+        height: 50,
         alignItems: 'center',
         justifyContent: 'center'
       },

@@ -3,25 +3,25 @@ import {
     StyleSheet,
     Text,
     TouchableWithoutFeedback,
-    Keyboard
+    Keyboard,
     } from 'react-native'
 
-import React from 'react'
+    import React, { useState } from "react";
 
-import Card from '../components/Card'
-import Button from '../components/Button'
+import Card from './Card'
+import Button from './Button'
 import COLORS from '../constants/Colors'
-import Input from '../components/Input'
-import NumberContainer from '../components/NumberContainer'
+import Input from './Input'
+import NumberContainer from './NumberContainer'
 
 
 
 
-const SetDespertador = ({alarmON}) => {
+const SetDespertador = (setAlarm) => {
 
-const [enteredValue, setEnteredValue] = React.useState('')
-const [confirmed, setConfirmed] = React.useState(false)
-const [selectedNumber, setSelectedNumber] = React.useState()
+const [enteredValue, setEnteredValue] = useState('')
+const [confirmed, setConfirmed] = useState(false)
+const [selectedNumber, setSelectedNumber] = useState()
 
 const numberInputHandler = inputText => {
   setEnteredValue(inputText.replace(/[^0-9]/g, ''))
@@ -83,7 +83,7 @@ const confirmInputHandler = () => {
               <Text>Horario Elegido</Text>
               <NumberContainer>{selectedNumber}:00 Horas</NumberContainer>
               <Button title="Setear Alarma" onPress={()=>{
-                alarmON(selectedNumber)
+                setAlarm(selectedNumber)
               }}/>
             </Card>
           }
@@ -92,7 +92,7 @@ const confirmInputHandler = () => {
   )
 }
 
-export default SetDespertador
+export default SetDespertador;
 
 const styles = StyleSheet.create({
     container: {
