@@ -1,4 +1,4 @@
-import { View, Image, StyleSheet, Text } from 'react-native'
+import { View, Image, StyleSheet } from 'react-native'
 import presentacion from '../../assets/presentacion.png';
 import React from 'react'
 

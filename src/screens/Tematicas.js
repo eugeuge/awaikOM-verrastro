@@ -14,7 +14,7 @@ import Button from '../components/Button';
 import COLORS from '../constants/Colors';
 
 const Tematicas = () => {
-    const [itemText, setItemText] = useState("");
+  const [itemText, setItemText] = useState("");
   const [items, setItems] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
