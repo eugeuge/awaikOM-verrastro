@@ -14,7 +14,6 @@ import {Provider} from 'react-redux';
 
 SplashScreen.preventAutoHideAsync();
 
-import Presentacion from './src/screens/Presentacion';
 import Header from './src/components/Header';
 import MainNavigator from './src/navigators/MainNavigator';
 import store from './src/store';
@@ -22,13 +21,8 @@ import store from './src/store';
 
 
 export default function App() {
-  const [presentacion, setPresentacion] = useState (true);
 
-  useEffect(()=> {
-    setTimeout( () => {
-      setPresentacion(false);
-    }, 5000);
-  }, []);
+
 
   
   const [fontsLoaded] = useFonts ({
@@ -37,8 +31,10 @@ export default function App() {
   });
 
   const onLayoutRootView = useCallback(async () => {
-    if (fontsLoaded) {
-      await SplashScreen.hideAsync();
+    if (fontsLoaded) {      
+      //setTimeout(async () => {
+        await SplashScreen.hideAsync();
+     // }, 3000);
     }
   }, [fontsLoaded]);
 
@@ -49,21 +45,18 @@ export default function App() {
 
   return (
     <Provider store={store}>
-    <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      style={styles.screen}>
+  
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
 
     <View style={styles.screen} onLayout={onLayoutRootView}>
-     {presentacion && <Presentacion/>}
-
-     {!presentacion && <Header/>}
-     {!presentacion && <MainNavigator/>}    
+      
+     {<Header/>}
+     {<MainNavigator/>}    
 
     </View>
 
     </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
+
     </Provider>
   );
 }

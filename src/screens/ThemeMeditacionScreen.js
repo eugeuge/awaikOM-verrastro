@@ -26,7 +26,7 @@ const ThemeMeditacionScreen = ({ route, navigation }) => {
   const handleOnSelected = (item) => {
     dispatch(selectMeditacion(item.id))
     navigation.navigate('Detalle Meditación', {
-           // meditacion: item
+           meditacion: item
     })
   }
 

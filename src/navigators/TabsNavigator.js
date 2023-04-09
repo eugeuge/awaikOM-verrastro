@@ -8,6 +8,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import MenuNavigator from './MenuNavigator'
 import AlarmaNavigator from './AlarmaNavigator'
 import TematicasNavigator from './TematicasNavigator'
+import UserNavigator from './UserNavigator'
 import COLORS from '../constants/Colors'
 
 const BottomTabs = createBottomTabNavigator();
@@ -20,7 +21,11 @@ const TabsNavigator = () => {
     screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: styles.tabBar
+        tabBarStyle: styles.tabBar,
+
+        tabBarHideOnKeyboard: true
+
+      
       }}
       >
         <BottomTabs.Screen name="Menu-tab" component={MenuNavigator}
@@ -30,7 +35,8 @@ const TabsNavigator = () => {
                 <FontAwesome name="home" size={24} color={focused ? COLORS.primary : COLORS.grey} />
                 <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Menu</Text>
               </View>
-            )
+            ),
+            unmountOnBlur: true,
           }}
           />
         <BottomTabs.Screen name="Tematicas-tab" component={TematicasNavigator}
@@ -40,15 +46,26 @@ const TabsNavigator = () => {
                 <MaterialCommunityIcons name="meditation" size={26} color={focused ? COLORS.primary : COLORS.grey} />
                 <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Temáticas</Text>
               </View>
-            )
-          }}
+                    ),
+             unmountOnBlur: true,
+                  }}
         />
         <BottomTabs.Screen name="Alarma-tab" component={AlarmaNavigator}
         options={{
             tabBarIcon: ({ focused }) => (
               <View style={styles.tabBarIcon}>
-                <Ionicons name="alarm" size={24} color={focused ? COLORS.primary : COLORS.grey} />
+                <Ionicons name="alarm" size={23} color={focused ? COLORS.primary : COLORS.grey} />
                 <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Alarma</Text>
+              </View>
+            )
+          }}
+          />
+        <BottomTabs.Screen name="User-tab" component={UserNavigator}
+        options={{
+            tabBarIcon: ({ focused }) => (
+              <View style={styles.tabBarIcon}>
+                <FontAwesome name="user" size={23} color={focused ? COLORS.primary : COLORS.grey} />
+                <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Usuario</Text>
               </View>
             )
           }}

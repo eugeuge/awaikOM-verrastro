@@ -10,6 +10,7 @@ const initialState = {
 const MeditacionReducer = ( state = initialState, action) => {
     switch(action.type){
         case SELECT_MEDITACION:
+            //Probar si no es más declarativo poner una constante con el resultado del find o filter y después asignarlo. Como en el after 12.
             return{
                 ...state,
                 selected: state.meditaciones.find(meditacion=> meditacion.id === action.meditacionID)

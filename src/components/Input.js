@@ -1,9 +1,9 @@
 import { StyleSheet, TextInput } from 'react-native'
 import React from 'react'
 
-const Input = ({style, ...otherPros}) => {
+const Input = ({style, ...otherProps}) => {
   return (
-    <TextInput style={[styles.input, style]} {...otherPros}/>
+    <TextInput style={[styles.input, style]} {...otherProps}/>
   )
 }
 
