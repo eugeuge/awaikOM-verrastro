@@ -1,51 +1,82 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, View, Image } from 'react-native'
 import React from 'react'
+import { useSelector } from 'react-redux';
 
 import COLORS from '../constants/Colors';
 import Button from '../components/Button';
-import ImageSelector from '../components/ImageSelector';
+import user from '../../assets/user.png';
 
-const User = () => {
+const User = ({navigation}) => {
 
-  const [imageValue, setImageValue] = React.useState('');
+const userPhotoDefined = useSelector(state =>state.user.userPhoto);
 
-  return (
-    <View style={styles.screen}>
-      <Text style={styles.title}>Elegí tu foto de Perfil</Text>
-      <ImageSelector onImage={image=>setImageValue(image)}/>
-      <Button
-                        styleButtonType={styles.buttonPhoto}
-                        title="Guardar"
-                        styleText={styles.buttonPhotoText}
-                        onPress={() => {}}
-                    />
-    </View>
-  )
+return(
+<View style= {styles.container}>
+
+<Image  style={styles.image} source={ userPhotoDefined =='' ? user : {uri: userPhotoDefined}}/>
+
+  <Button
+  styleButtonType={styles.buttonMenu}
+  title="Foto de Perfil"
+  styleText={styles.textMenu}
+  onPress={() => { 
+    navigation.navigate('Foto de Perfil') 
+    }}
+>
+</Button>
+<Button
+  styleButtonType={styles.buttonMenu}
+  title="Mis datos"
+  styleText={styles.textMenu}
+  onPress={() => { 
+    navigation.navigate('Mis Datos') 
+    }}
+>
+</Button>
+<Button
+  styleButtonType={styles.buttonSesion}
+  title="Cerrar Sesión"
+  styleText={styles.textMenu}
+  onPress={() => { 
+    navigation.navigate('Mi Sesión') 
+    }}
+>
+</Button>
+</View>
+)
 }
 
 export default User
 
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    margin: 30,
+  container: {
+    width: '100%',
+    height: '100%',
+    padding: 20,
     alignItems: 'center',
 },
-title: {
-    fontSize: 20,
-    fontFamily: 'open-sans-bold',
-    marginBottom: 12,
-    textAlign: 'center',
-    color: COLORS.text,
-},
-buttonPhoto: {
-  padding: 10,
-  margin: 5,
+buttonMenu:{
+  padding:10,
+  margin: 10,
+  marginVertical:15,
   minWidth: 180,
-  backgroundColor: COLORS.primary,
+  backgroundColor:COLORS.primary,
 },
-buttonPhotoText: {
+buttonSesion:{
+  padding:10,
+  margin: 10,
+  marginVertical:15,
+  minWidth: 180,
+  backgroundColor:COLORS.alerta,
+},
+textMenu:{
   color: '#FFFFFF',
-  fontSize: 17,
+},
+image: {
+  width: 150,
+  height: 150,
+  resizeMode:'cover',
+  borderRadius:500,
+  marginVertical: 20,
 },
 })

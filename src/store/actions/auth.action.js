@@ -5,6 +5,7 @@ export const SIGN_UP = 'SIGN_UP';
 export const SIGN_UP_START = 'SIGN_UP_START';
 export const SIGN_UP_FAIL = 'SIGN_UP_FAIL';
 export const SIGN_IN = 'SIGN_IN';
+export const SIGN_OUT = 'SIGN_OUT';
 
 
 export const signUp = (email, password) => {
@@ -67,10 +68,10 @@ export const signIn = (email, password) => {
                     password,
                     returnSecureToken: true
                 })
-             });
+            });
 
             const data = await response.json();
-        
+
 
             if (data.registered) {
                 dispatch({
@@ -93,3 +94,7 @@ export const signIn = (email, password) => {
     }
 
 }
+
+export const signOut = () => ({
+        type: SIGN_OUT,
+})

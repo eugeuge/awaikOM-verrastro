@@ -57,7 +57,8 @@ const TabsNavigator = () => {
                 <Ionicons name="alarm" size={23} color={focused ? COLORS.primary : COLORS.grey} />
                 <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Alarma</Text>
               </View>
-            )
+            ),
+            unmountOnBlur: true,
           }}
           />
         <BottomTabs.Screen name="User-tab" component={UserNavigator}
@@ -67,7 +68,8 @@ const TabsNavigator = () => {
                 <FontAwesome name="user" size={23} color={focused ? COLORS.primary : COLORS.grey} />
                 <Text style={{ color: focused ? COLORS.primary : COLORS.grey }}>Usuario</Text>
               </View>
-            )
+            ),
+            unmountOnBlur: true,
           }}
           />
     </BottomTabs.Navigator>

@@ -1,12 +1,30 @@
-import { View, StyleSheet } from 'react-native'
-import React from 'react'
+import { View, StyleSheet } from 'react-native';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import Button from '../components/Button';
-import COLORS from '../constants/Colors'
+import COLORS from '../constants/Colors';
+ import { setUserID } from '../store/actions/user.action';
 
 const Options = ({navigation}) => {
+
+ const dispatch = useDispatch();
+ const userProfileID = useSelector(state =>state.user.userProfileID);
+ const userLoggedID = useSelector(state =>state.auth.userID);
+
+ const setearUsuario = () => {
+  console.log(userProfileID)
+  if(userProfileID == 0){
+  dispatch(setUserID(userLoggedID))
+
+}
+console.log(userProfileID)
+}
+
   return (
     <View style= {styles.container}>
+      {setearUsuario()}
       <Button
               styleButtonType={styles.buttonMenu}
               title="Setear Alarma"

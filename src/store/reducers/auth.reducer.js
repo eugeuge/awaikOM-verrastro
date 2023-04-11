@@ -1,21 +1,22 @@
-import {SIGN_UP, SIGN_UP_FAIL} from '../actions/auth.action';
-import {SIGN_UP_START} from '../actions/auth.action';
-import {SIGN_IN} from '../actions/auth.action';
+import { SIGN_UP, SIGN_UP_FAIL } from '../actions/auth.action';
+import { SIGN_UP_START } from '../actions/auth.action';
+import { SIGN_IN } from '../actions/auth.action';
+import { SIGN_OUT } from '../actions/auth.action';
 
-const initialState ={
-    token:null,
+const initialState = {
+    token: null,
     userID: null,
-    isLoading:false,
+    isLoading: false,
     isAuth: false,
-    errorEnRegistro:false,
+    errorEnRegistro: false,
 }
 
-const authReducer = (state=initialState, action) => {
-    switch(action.type) {
+const authReducer = (state = initialState, action) => {
+    switch (action.type) {
         case SIGN_UP_START:
-            return{
+            return {
                 ...state,
-                isLoading:true
+                isLoading: true
             }
 
         case SIGN_UP:
@@ -23,25 +24,31 @@ const authReducer = (state=initialState, action) => {
                 ...state,
                 token: action.token,
                 userID: action.userID,
-                isLoading:false,
-                errorEnRegistro:false
+                isLoading: false,
+                errorEnRegistro: false
             }
 
         case SIGN_UP_FAIL:
-            return{
-                 ...state,
-                isLoading:false,
-                errorEnRegistro:true
-             }
-        
+            return {
+                ...state,
+                isLoading: false,
+                errorEnRegistro: true
+            }
+
         case SIGN_IN:
             return {
                 ...state,
                 token: action.token,
                 userID: action.userID,
-                isLoading:false,
-                errorEnRegistro:false,
-                isAuth:true
+                isLoading: false,
+                errorEnRegistro: false,
+                isAuth: true
+            }
+
+        case SIGN_OUT:
+            return {
+                ...state,
+                isAuth: false,
             }
 
 
