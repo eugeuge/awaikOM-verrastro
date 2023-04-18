@@ -20,7 +20,7 @@ const RegisterOKScreen = ({ navigation }) => {
       <Text style={styles.text}>Una vez dentro de la aplicación, podrás completar tu perfil en la pestaña "Usuario" del menú de navegación ubicado en la parte inferior de tu pantalla.</Text>
       <Button
         styleButtonType={styles.buttonLogin}
-        title= "Log IN"
+        title= "Login"
         styleText={styles.buttonLoginText}
         onPress={onHandleRegisterOK}
       >

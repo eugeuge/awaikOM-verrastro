@@ -27,7 +27,7 @@ const RegisterScreen = ({navigation}) => {
   return (
 <KeyboardAvoidingView style={styles.screen} behavior="padding">
     <View style={styles.container}>
-        <Text style={styles.title}>LOG IN</Text>
+        <Text style={styles.title}>LOGIN</Text>
         <View style={styles.form}>
             <Text style={styles.label}>Email</Text>
             <TextInput style={styles.textInput}
