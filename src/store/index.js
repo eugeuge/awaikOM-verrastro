@@ -9,17 +9,19 @@ const persistConfig = {
     storage: AsyncStorage
   }
 
-// redusers
+// reducers
 import ThemeReducer from './reducers/theme.reducer';
 import MeditacionReducer from './reducers/meditacion.reducer';
 import AuthReducer from './reducers/auth.reducer';
 import UserReducer from './reducers/user.reducer';
+import AlarmReducer from './reducers/alarm.reducer';
 
 const rootReducer = combineReducers({
     themes: ThemeReducer,
     meditaciones: MeditacionReducer,
     auth: AuthReducer,
     user: UserReducer,
+    alarm: AlarmReducer,
 }) 
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

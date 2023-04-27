@@ -16,8 +16,8 @@ const ThemeMeditacionScreen = ({ route, navigation }) => {
   //const meditaciones = MEDITACIONES.filter(meditacion => meditacion.theme === themeId)
 
   const dispatch = useDispatch();
-  const themeMeditaciones = useSelector(state => state.meditaciones.filteredMeditaciones)
   const theme = useSelector(state => state.themes.selected)
+  const themeMeditaciones = useSelector(state => state.meditaciones.filteredMeditaciones)
 
   useEffect(()=>{
     dispatch(filterMeditacion(theme.id))

@@ -1,13 +1,14 @@
 import {SET_USERID} from '../actions/user.action';
 import {SET_USERPHOTO} from '../actions/user.action';
+import {ADD_FAVORITEMEDITATION} from '../actions/user.action';
+import {DELETE_FAVORITEMEDITATION} from '../actions/user.action';
 
 const initialState = {
     userProfileID: 0,
     userPhoto: '',
     userName: null,
     userEmail: null,
-    userSelectedMeditations: [],
-    userAlarms: [],
+    userFavoritesMeditations: [],
 }
 
 const userReducer = (state = initialState, action) => {
@@ -23,6 +24,18 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 userPhoto: action.userPhoto,
             }
+        
+        case ADD_FAVORITEMEDITATION:
+                return {
+                    ...state,
+                    userFavoritesMeditations: [...state.userFavoritesMeditations, action.favoriteMeditation]
+                }
+
+        case DELETE_FAVORITEMEDITATION:
+        return {
+            ...state,
+            userFavoritesMeditations: state.userFavoritesMeditations.filter(item => item.id !== action.favoriteMeditationToDelete.id)
+        }
 
         default:
             return state;

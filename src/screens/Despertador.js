@@ -4,21 +4,23 @@ import React, { useState } from "react";
 
 import AlarmON from '../components/AlarmON';
 import SetDespertador from '../components/SetDespertador';
+import { useSelector } from 'react-redux'
 
-function Despertador () {
+function Despertador ({navigation}) {
 
-    const [alarmDefined, setAlarmDefined] = useState ('');
+  const alarmSet = useSelector(state => state.alarm.isSet)
 
-    const setAlarm = alarm => {
-    setAlarmDefined(alarm);
+
+const elegirMeditacion = () => {
+  navigation.navigate('Elegí el tipo de meditación')
 }
 
   return (
     <View>
         {  
-        !alarmDefined
-          ? <SetDespertador setAlarm={setAlarm}/>
-          : <AlarmON setAlarm={setAlarm} selectedNumber={alarmDefined} />
+        !alarmSet
+          ? <SetDespertador elegirMeditacion={elegirMeditacion}/>
+          : <AlarmON/>
         }
     </View>
   )
