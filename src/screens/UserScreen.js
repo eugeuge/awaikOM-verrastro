@@ -6,7 +6,7 @@ import COLORS from '../constants/Colors';
 import Button from '../components/Button';
 import user from '../../assets/user.png';
 
-const User = ({navigation}) => {
+const UserScreen = ({navigation}) => {
 
 const userPhotoDefined = useSelector(state =>state.user.userPhoto);
 
@@ -46,7 +46,7 @@ return(
 )
 }
 
-export default User
+export default UserScreen
 
 const styles = StyleSheet.create({
   container: {

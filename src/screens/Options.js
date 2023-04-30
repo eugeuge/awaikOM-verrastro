@@ -53,9 +53,9 @@ const styles = StyleSheet.create({
 title: {
   fontSize: 20,
   fontFamily: 'open-sans-bold',
-  marginTop: height * 0.04,
+  marginTop: height * 0.02,
   width: width * 0.5,
-  height: height * 0.065,
+  height: height * 0.07,
   textAlign: 'center',
   color: COLORS.text,
 },

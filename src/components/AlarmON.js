@@ -13,7 +13,7 @@ const { height, width } = Dimensions.get("window");
 const AlarmON = () => {
   const dispatch = useDispatch();
   const tempDate = useSelector(state => state.alarm.dateTime);
-  const meditacion = useSelector(state => state.alarm.meditacion.name);
+  const meditacion = useSelector(state => state.alarm.meditation.name);
 
   const fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
   const minutes = tempDate.getMinutes() < 10 ? '0' + tempDate.getMinutes() : tempDate.getMinutes();

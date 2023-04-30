@@ -12,11 +12,24 @@ import {
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as Notifications from 'expo-notifications';
+import * as Permissions from 'expo-permissions';
 
 
 import Button from './Button'
 import COLORS from '../constants/Colors'
 import { setAlarm } from '../store/actions/alarm.action';
+
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+  return {
+  shouldShowAlert: true,
+  shouldPlaySound: true,
+  shouldSetBadge: true,
+  }}
+  })
+
 
 const { height, width } = Dimensions.get("window");
 
@@ -28,6 +41,7 @@ const SetDespertador = ({ elegirMeditacion }) => {
   const [date, setDate] = useState(new Date());
   const [alarmDateTime, setAlarmDateTime] = useState();
   const [mode, setMode] = useState('date');
+  const [trigger, setTrigger] = useState(new Date());
   const [show, setShow] = useState(false);
   const [dateTimeOK, setdateTimeOK] = useState(false);
   const [meditacionOK, setMeditacionOK] = useState(false);
@@ -37,6 +51,22 @@ const SetDespertador = ({ elegirMeditacion }) => {
   const meditacionElegida = useSelector(state => state.alarm.meditation);
 
   const dispatch = useDispatch();
+
+  
+  useEffect(() => {
+    Permissions.getAsync(Permissions.NOTIFICATIONS).then((statusObj) => {
+      if (statusObj.status !== 'granted') {
+        return Permissions.askAsync(Permissions.NOTIFICATIONS)
+      }
+      return statusObj;
+    }).then((statusObj) => {
+      if (statusObj.status !== 'granted') {
+        return;
+      }
+    })
+  }, [])
+
+
 
   const onChangeDateTimePicker = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -68,6 +98,10 @@ const SetDespertador = ({ elegirMeditacion }) => {
     }
   }, [meditacionElegida])
 
+  useEffect(() => {
+  setTrigger(alarmDateTime)
+  }, [alarmDateTime])
+
   const openModal = () => {
     setModalVisible(true);
   };
@@ -76,9 +110,22 @@ const SetDespertador = ({ elegirMeditacion }) => {
     setModalVisible(!modalVisible);
   };
 
+  const triggerNotifications = async () => {
+    await Notifications.scheduleNotificationAsync({
+    content: {
+    title: 'Es hora de despertarse',
+    body: 'Disfrutá tu meditación "' + meditacionElegida.name + '" para que empieces un día positivo con awikÖM',
+    sound: '../../assets/audio/' + meditacionElegida.audio,
+    data: { data: 'goes here' },
+    },
+    trigger: trigger,
+    });
+    }
+
   const definirAlarma = () => {
     console.log(alarmDateTime)
     dispatch(setAlarm(alarmDateTime));
+    triggerNotifications();
   }
 
   return (

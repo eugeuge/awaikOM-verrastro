@@ -7,7 +7,7 @@ import Button from '../components/Button';
 import ImageSelector from '../components/ImageSelector';
 import { setUserPhoto } from '../store/actions/user.action';
 
-const User = () => {
+const UserPhotoScreen = () => {
 
   const dispatch = useDispatch();
   const [imageValue, setImageValue] = React.useState('');
@@ -30,7 +30,7 @@ const User = () => {
   )
 }
 
-export default User
+export default UserPhotoScreen
 
 const styles = StyleSheet.create({
   screen: {
