@@ -40,11 +40,11 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      {/* <PersistGate loading={null} persistor={storePersisted}> */}
+      <PersistGate loading={null} persistor={storePersisted}>
       <View style={styles.screen} onLayout={onLayoutRootView}>
         <MainNavigator />
       </View>
-      {/* </PersistGate> */}
+      </PersistGate>
     </Provider>
   );
 }

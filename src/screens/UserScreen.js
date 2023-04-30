@@ -24,15 +24,7 @@ return(
     }}
 >
 </Button>
-<Button
-  styleButtonType={styles.buttonMenu}
-  title="Mis datos"
-  styleText={styles.textMenu}
-  onPress={() => { 
-    navigation.navigate('Mis Datos') 
-    }}
->
-</Button>
+
 <Button
   styleButtonType={styles.buttonSesion}
   title="Cerrar Sesión"
