@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "awaikOM-verrastro",
-    "slug": "awaikOM-verrastro",
+    "name": "awaikOM",
+    "slug": "awaikOM",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,13 +25,19 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-    "useNotificationApi" : true
+      "useNotificationApi": true,
+      "package": "com.everrastro.awaikOM"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "notification": {
       "icon": "./assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "24a95c14-d1db-4f61-a427-1180bd8c96b7"
+      }
     }
   }
 }

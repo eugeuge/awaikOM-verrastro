@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Dimensions } from 'react-native'
-import React from 'react'
+import React, { useEffect }from 'react'
 
 import Button from '../components/Button'
 import NumberContainer from '../components/NumberContainer'
@@ -9,15 +9,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import COLORS from '../constants/Colors'
 const { height, width } = Dimensions.get("window");
 
+////////////////// la lógica de despertador
+// const currentDate = selectedDate || date;
+// setShow(Platform.OS === 'ios');
+// setDate(currentDate);
+
+// const tempDate = new Date(currentDate);
+////////////////// la lógica de despertador
+
 
 const AlarmON = () => {
   const dispatch = useDispatch();
-  const tempDate = useSelector(state => state.alarm.dateTime);
-  const meditacion = useSelector(state => state.alarm.meditation.name);
 
-  const fDate = tempDate.getDate() + '/' + (tempDate.getMonth() + 1) + '/' + tempDate.getFullYear();
-  const minutes = tempDate.getMinutes() < 10 ? '0' + tempDate.getMinutes() : tempDate.getMinutes();
-  const fTime = tempDate.getHours() + ':' + minutes;
+  const alarmDate = useSelector(state => state.alarm.dateTime);
+  const meditacion = useSelector(state => state.alarm.meditation.name);
+  const fDate = alarmDate.getDate() + '/' + (alarmDate.getMonth() + 1) + '/' + alarmDate.getFullYear();
+  const minutes = alarmDate.getMinutes() < 10 ? '0' + alarmDate.getMinutes() : alarmDate.getMinutes();
+  const fTime = alarmDate.getHours() + ':' + minutes;
+
+
   return (
     <View style={styles.container}>
       <View style={styles.selectedNumberContainer}>

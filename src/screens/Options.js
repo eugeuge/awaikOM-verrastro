@@ -1,10 +1,10 @@
 import { View, StyleSheet, Dimensions, Text, ScrollView } from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Button from '../components/Button';
 import COLORS from '../constants/Colors';
 import { setUserID } from '../store/actions/user.action';
+import { resetAlarm } from '../store/actions/alarm.action';
 import AlarmON from '../components/AlarmON';
 
 const { height, width } = Dimensions.get("window");
@@ -14,7 +14,8 @@ const Options = ({navigation}) => {
  const dispatch = useDispatch();
  const userProfileID = useSelector(state =>state.user.userProfileID);
  const userLoggedID = useSelector(state =>state.auth.userID);
- const alarmSet = useSelector(state => state.alarm.isSet)
+ const alarmSet = useSelector(state => state.alarm.isSet);
+ const alarmDate = useSelector(state => state.alarm.dateTime);
 
  const setearUsuario = () => {
   if(userProfileID == 0){
@@ -23,6 +24,17 @@ const Options = ({navigation}) => {
 }
 console.log(userProfileID)
 }
+
+// Este useEffect lo pongo, porque sino, la alarma que ya estaba definida no se reseteaba nunca y me daba un error al 
+// querer volver a entrar a la app. No estoy segura que sea la mejor opción, pero fue un recurso útil.
+
+useEffect( ( )=> {
+const currentDate = new Date();
+if(alarmDate == null || currentDate >= alarmDate ) {
+dispatch(resetAlarm())
+}
+}, [])
+  
 
   return (
     <View style= {styles.container}>

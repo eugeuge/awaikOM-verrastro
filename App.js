@@ -38,6 +38,7 @@ export default function App() {
     return null;
   }
 
+
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={storePersisted}>

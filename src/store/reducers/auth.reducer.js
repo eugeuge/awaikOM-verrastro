@@ -16,7 +16,8 @@ const authReducer = (state = initialState, action) => {
         case SIGN_UP_START:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                errorEnRegistro: false,
             }
 
         case SIGN_UP:
@@ -49,6 +50,7 @@ const authReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isAuth: false,
+                errorEnRegistro: false,
             }
 
 

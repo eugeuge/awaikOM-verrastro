@@ -19,6 +19,7 @@ import * as Permissions from 'expo-permissions';
 import Button from './Button'
 import COLORS from '../constants/Colors'
 import { setAlarm } from '../store/actions/alarm.action';
+import { resetAlarm } from '../store/actions/alarm.action';
 
 
 Notifications.setNotificationHandler({
@@ -49,6 +50,7 @@ const SetDespertador = ({ elegirMeditacion }) => {
   const [text, setText] = useState('No hay ninguna alarma definida');
   const [textMeditacion, setTextMeditacion] = useState('Meditación a definir');
   const meditacionElegida = useSelector(state => state.alarm.meditation);
+  
 
   const dispatch = useDispatch();
 
@@ -99,8 +101,16 @@ const SetDespertador = ({ elegirMeditacion }) => {
   }, [meditacionElegida])
 
   useEffect(() => {
-  setTrigger(alarmDateTime)
+  setTrigger(alarmDateTime);
+  
   }, [alarmDateTime])
+
+  useEffect(() => {
+    const ahora = new Date();
+    if(trigger == ahora) {
+      dispatch(resetAlarm())
+    }
+  }, [trigger] )
 
   const openModal = () => {
     setModalVisible(true);

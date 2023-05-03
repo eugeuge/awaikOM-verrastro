@@ -41,7 +41,7 @@ const DespertadorMeditacionesDetailScreen = ({ route, navigation }) => {
     setPlaying(!playing);
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     return sound
       ? () => {
         console.log('Unloading Sound');
@@ -55,10 +55,6 @@ const DespertadorMeditacionesDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       title: meditacion.name
     })
-    console.log(meditacion.name)
-    console.log(meditacionElegida)
-    console.log(meditacionElegida == meditacion)
-
     if (meditacionElegida != null && meditacion.name == meditacionElegida.name) {
       setElegida(true)
     }
